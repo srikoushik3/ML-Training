@@ -30,6 +30,33 @@ pass an array of tensors as a parameter
  - second param: type of the generated data by the function
  - gen_func will return all the values to be in the dataset
 
+ 5) tf.data.TextLineDataset()
+  - first param: name of text files
+  - second param: type of compression (ex. zip, gzip)
+  - third param: optional buffer_size
+
+ 6) Reading tf.data.TFRecordDataset
+  - same first 3 parameters as the TextLineDataset()
+  - fourth param: num_parallel_read - used to read remote data
+
+  Note about TFRecordDatasets: Each element in the ds is an example, and each example has multiple features
+    - features is a dictionary of an a string key and a tensor value (tf.FixedLenFeature() or tf.VarLenFeature())
+    - tf.data.parse_single_example(example, features): used to parse a single example in a dataset
+
+
+ Simple Operations with Datasets
+
+ 1) take(count)- returns a dataset with the first count elements
+ 2) skip(count) - returns a dataset with all but the first count elements
+ 3) repeat(count=None) - returns dataset's elements, repeated the given number of times (defualt count = 2)
+
+ 4) concatenate(dataset) - returns a concatenation of the dataset with the given dataset
+ 5) batch(batch_size) - splits a dataset into elements of the given size
+ 6) shuffle(buffer_size, seed=None) - shuffles the given number of values and returns them in the dataset
+
+ 7) filter(func) - ex. ds.filter(lambda x: x > 5) -> will return a dataset with all elements greater than 5
+ 8) map(func) - applies the func to every element in the dataset
+
 '''
 
 # Generator function
